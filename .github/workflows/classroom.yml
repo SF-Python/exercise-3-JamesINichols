@@ -94,7 +94,7 @@ jobs:
         setup-command: ''
         command: python exercise3.py
         input: 04:26:65
-        expected-output: For 04:26:65 the MAC manufacturer is Apple, Inc..
+        expected-output: For 04:26:65 the MAC manufacturer is Apple, Inc.
         comparison-method: contains
         timeout: 1
         max-score: 4
