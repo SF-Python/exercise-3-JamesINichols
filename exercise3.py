@@ -1,36 +1,37 @@
-# Kameron Kinsman(Kam33-class)
-# COP2002.OT1
-# 9/21/2024
-# exercise3
-# This Program will use if statemnts to help students determine who the manufacturer is for the NIC card the user inputs.
+# Jaden Donda
+# F24 COP2002.0T1: PROGRAM LOGIC
+# 9/21/24
+# MAC Manufacturer Program - A program that asks the user for the first 6 hex digits formatted as XX:XX:XX and provides the manufacturer
 
-# Defining main as the program to get the MAC manufacturer.
 def main():
-    print("MAC Manufacturer Program")
-    print("------------------------\n")
+   # creating chart to connect hex digits to manufacturers
+    mac_manufacturers = {
+        "00:00:17": "Oracle",
+        "00:07:E9": "Intel Corporation",
+        "04:27:28": "Microsoft Corporation",
+        "04:26:65": "Apple, Inc.",
+        "04:33:89": "Huawei Technologies Co.,Ltd",
+        "00:00:0C": "Cisco Systems, Inc"
+    }
+
+       # program title
+    print("MAC Manufacturer Program")  # MAC output statement
+    print("-------------------------")  # dashes output statement
+    print()  # (blank line)
     
-    # Prompting the user to enter the first 6 hex values of the MAC address and assigning that input to the variable hex_digits.
-    hex_digits = input("Enter the first 6 hex values of the MAC address (format as XX:XX:XX): ")
+       # asking for MAC address using the first 6 hex digits
+    mac_input = input("Enter the first 6 hex values of the MAC address (format as XX:XX:XX): ").upper()
 
-    # Using if...elif...else statements to check the hex_digits.
-    if hex_digits == "00:00:17":
-        manufacturer = "Oracle"
-    elif hex_digits == "00:07:E9":
-        manufacturer = "Intel Corporation"
-    elif hex_digits == "04:27:28":
-        manufacturer = "Microsoft Corporation"
-    elif hex_digits == "04:26:65":
-        manufacturer = "Apple, Inc."
-    elif hex_digits == "04:33:89":
-        manufacturer = "Huawei Technologies Co.,Ltd"
-    elif hex_digits == "00:00:0C":
-        manufacturer = "Cisco Systems, Inc"
+       # find manufacturer based on the provided input
+    manufacturer = mac_manufacturers.get(mac_input, "< Invalid value or not found>")
+    
+       # display result
+    if manufacturer != "<Invalid value or not found>":
+        print(f"\nFor {mac_input}, the MAC manufacturer is {manufacturer}.")
     else:
-        manufacturer = "Unknown"
+        print(f"\n{mac_input} is invalid or not found.")
 
-    # Printing the manufacturer result.
-    print(f"For {hex_digits} the MAC manufacturer is {manufacturer}.")
-
-# Calling main function to execute.
-if(__name__=="__main__"):
+    # calling main function
+if __name__ == "__main__":
     main()
+
