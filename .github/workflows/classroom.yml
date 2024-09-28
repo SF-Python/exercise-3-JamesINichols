@@ -1,0 +1,73 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: MAC Text
+      id: mac-text
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: MAC Text
+        setup-command: ''
+        command: python exercise3.py
+        input: "-1"
+        expected-output: MAC Manufacturer Program
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: Dashes Text
+      id: dashes-text
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Dashes Text
+        setup-command: ''
+        command: python exercise3.py
+        input: "-11"
+        expected-output: "------------------------"
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: Prompt Text
+      id: prompt-text
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Prompt Text
+        setup-command: ''
+        command: python exercise3.py
+        input: "-111"
+        expected-output: 'Enter the first 6 hex values of the MAC address (format
+          as XX:XX:XX): '
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: Oracle Test Case
+      id: oracle-test-case
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Oracle Test Case
+        setup-command: ''
+        command: python exercise3.py
+        input: '00:00:17'
+        expected-output: For 00:00:17 the MAC manufacturer is Oracle.
+        comparison-method: contains
+        timeout: 1
+        max-score: 4
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        MAC-TEXT_RESULTS: "${{steps.mac-text.outputs.result}}"
+        DASHES-TEXT_RESULTS: "${{steps.dashes-text.outputs.result}}"
+        PROMPT-TEXT_RESULTS: "${{steps.prompt-text.outputs.result}}"
+        ORACLE-TEST-CASE_RESULTS: "${{steps.oracle-test-case.outputs.result}}"
+      with:
+        runners: mac-text,dashes-text,prompt-text,oracle-test-case
